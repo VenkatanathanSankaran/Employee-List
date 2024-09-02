@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Table</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container { 
+            margin-top: 50px; 
+        }
+        .table th, .table td { 
+            text-align: center; 
+        }
+        table {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Department List</h2>
+        <div class="row mb-2">
+            <div class="col">
+                <input type="text" id="employeedeptid" class="form-control" placeholder="DeptId" required>
+            </div>
+            <div class="col">
+                <input type="text" id="employeeDept" class="form-control" placeholder="Department" required>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger form-control" id="saveDeptButton">Save Department</button>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <br>
+
+
+
+    <div class="container">
+        <h2 class="text-center">Employee Details</h2>
+        <div class="row mb-2">
+            <div class="col">
+                <select id="deptDropdown" class="form-control" placeholder="Id" required>
+                    <option value="" disabled>Select Department Id</option>
+                </select>
+            </div>
+            <div class="col">
+                <input type="text" id="EmpName" class="form-control" placeholder="Employee Name" required>
+            </div>
+            <div class="col">
+                <input type="text" id="Age" class="form-control" placeholder="Age" required>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger form-control" id="saveEmployeeButton">Save Employee</button>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody2">
+            </tbody>
+        </table>
+    </div>
+
+
+
+<script>
+	
+	
+			const departments = {};
+
+		document.getElementById('saveDeptButton').addEventListener('click', function() {
+			const deptId = document.getElementById('employeedeptid').value;
+			const department = document.getElementById('employeeDept').value;
+
+			if (deptId && department) {
+				departments[deptId] = department;
+				const deptDropdown = document.getElementById('deptDropdown');
+				const option = document.createElement('option');
+				option.value = department;
+				option.text = deptId;
+				deptDropdown.add(option);
+
+				const tableBody = document.getElementById('employeeTableBody');
+				const row = tableBody.insertRow();
+				row.insertCell(0).innerText = deptId;
+				row.insertCell(1).innerText = department;
+
+				document.getElementById('employeedeptid').value = '';
+				document.getElementById('employeeDept').value = '';
+			} 
+			else {
+				alert('Please fill all fields');
+			}
+		});
+
+		document.getElementById('saveEmployeeButton').addEventListener('click', function() {
+			const deptId = document.getElementById('deptDropdown').value;
+			const name = document.getElementById('EmpName').value;
+			const age = document.getElementById('Age').value;
+
+			if (deptId && name && age) {
+				const tableBody = document.getElementById('employeeTableBody2');
+				const row = tableBody.insertRow();
+				row.insertCell(0).innerText = deptId;
+				row.insertCell(1).innerText = name;
+				row.insertCell(2).innerText = age;
+
+				document.getElementById('deptDropdown').value = '';
+				document.getElementById('EmpName').value = '';
+				document.getElementById('Age').value = '';
+			} 
+			else {
+				alert('Please fill all fields');
+			}
+		});
+
+		
+</script>
+</body>
+</html>
